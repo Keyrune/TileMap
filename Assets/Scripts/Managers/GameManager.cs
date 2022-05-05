@@ -26,15 +26,16 @@ public class GameManager : MonoBehaviour
             case GameState.GenerateGrid:
                 GridManager.Instance.GenerateGrid();
                 break;
-            case GameState.SpawnRounds:
-                UnitManager.Instance.SpawnRoundUnits();
-                break;
-            case GameState.SpawnSquares:
-                UnitManager.Instance.SpawnSquareUnits();
+            case GameState.Deploy:
+                UnitManager.Instance.SpawnUnits(Faction.Round, 2);
+                UnitManager.Instance.SpawnUnits(Faction.Square, 2);
+                ChangeState(GameState.RoundsTurn);
                 break;
             case GameState.RoundsTurn:
                 break;
             case GameState.SquaresTurn:
+                break;
+            case GameState.TurnLogic:
                 break;    
         }   
     }
@@ -45,18 +46,11 @@ public class GameManager : MonoBehaviour
 
 public enum GameState 
     {
-        GenerateGrid = 0,
-        SpawnRounds = 1,
-        SpawnSquares = 2,
-        RoundsTurn = 3,
-        SquaresTurn = 4
+        GenerateGrid,
+        Deploy,
+        SpawnRounds,
+        SpawnSquares,
+        RoundsTurn,
+        SquaresTurn, 
+        TurnLogic
     }
-
-// public enum GameState 
-// {
-//     GenerateGrid,
-//     UnitSelect,         
-//     Deploy, 
-//     RoundsTurn,
-//     SquaresTurn
-// }

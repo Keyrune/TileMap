@@ -41,7 +41,7 @@ public class GridManager : MonoBehaviour {
  
         _cam.transform.position = new Vector3((float)_width/2 -0.5f, (float)_height / 2 - 0.5f,-10);
 
-        GameManager.Instance.ChangeState(GameState.SpawnRounds);
+        GameManager.Instance.ChangeState(GameState.Deploy);
     }
  
     public Tile GetRoundSpawnTile() {
@@ -49,6 +49,12 @@ public class GridManager : MonoBehaviour {
     }
 
     public Tile GetSquareSpawnTile() {
+        return _tiles.Where(t => t.Key.x > _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
+    }
+
+    public Tile GetSpawnTile(Faction faction) {
+        if (faction == Faction.Round) 
+            return _tiles.Where(t => t.Key.x < _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
         return _tiles.Where(t => t.Key.x > _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
 

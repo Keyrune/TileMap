@@ -16,13 +16,13 @@ public class UnitManager : MonoBehaviour
     private void Awake() {
         Instance = this;
 
-        _units = Resources.LoadAll<ScriptableUnit>("").ToList();
+        _units = Resources.LoadAll<ScriptableUnit>("Animals").ToList();
     }
 
     public void SpawnRoundUnits() {
         Faction faction = Faction.Round;
 
-        var randomData = GetRandomUnit();
+        var randomData = GetRandomUnit<ScriptableUnit>(Faction.Round);
         var spawnedUnit = Instantiate(unitPrefab);
         spawnedUnit.Faction = faction;
         spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
@@ -38,7 +38,7 @@ public class UnitManager : MonoBehaviour
     public void SpawnSquareUnits() {
         Faction faction = Faction.Square;
 
-        var randomData = GetRandomUnit();
+        var randomData = GetRandomUnit<ScriptableUnit>(Faction.Square);
         var spawnedUnit = Instantiate(unitPrefab);
         spawnedUnit.Faction = faction;
         spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
@@ -50,13 +50,28 @@ public class UnitManager : MonoBehaviour
         GameManager.Instance.ChangeState(GameState.RoundsTurn);
     }
 
-    private ScriptableUnit GetRandomUnit() {
-        return _units[0];
+    public void SpawnUnits(Faction faction, int numberOfUnits = 1) {
+        for (int i = 0; i < numberOfUnits; i++)
+        {
+            var randomData = GetRandomUnit<ScriptableUnit>(Faction.Square);
+            var spawnedUnit = Instantiate(unitPrefab);
+            spawnedUnit.Faction = faction;
+            spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
+
+            var randomSpawnTile = GridManager.Instance.GetSpawnTile(faction);
+
+            randomSpawnTile.SetUnit(spawnedUnit);
+        }
+    }
+
+
+    private T GetRandomUnit<T>(Faction faction) where T : ScriptableUnit {
+        return (T)_units.OrderBy(u => Random.value).First();
     }
 
     public void SetSelectedUnit(BaseUnit unit) {
         SelectedUnit = unit;
-        //MenuManager.Instance.ShowSelectedHero(hero);
+        MenuManager.Instance.ShowSelectedUnit(unit);
     }
 
 

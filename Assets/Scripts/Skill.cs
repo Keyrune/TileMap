@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill : MonoBehaviour
+[CreateAssetMenu(fileName = "New Skill", menuName = "Scriptable Skill")]
+public class Skill : ScriptableObject
 {
     public void Activate(params BaseUnit[] targets) {
         foreach (var target in targets) {

@@ -14,6 +14,7 @@ public class BaseUnit : MonoBehaviour
     public int health = 100;
 
 
+
     private void Awake() {
         MovePoint.parent = null;
     }
@@ -35,6 +36,8 @@ public class BaseUnit : MonoBehaviour
         Debug.Log(health);
         
     }
+
+    
 
 
     

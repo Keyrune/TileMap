@@ -19,36 +19,36 @@ public class UnitManager : MonoBehaviour
         _units = Resources.LoadAll<ScriptableUnit>("Animals").ToList();
     }
 
-    public void SpawnRoundUnits() {
-        Faction faction = Faction.Round;
+    // public void SpawnRoundUnits() {
+    //     Faction faction = Faction.Round;
 
-        var randomData = GetRandomUnit<ScriptableUnit>(Faction.Round);
-        var spawnedUnit = Instantiate(unitPrefab);
-        spawnedUnit.Faction = faction;
-        spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
+    //     var randomData = GetRandomUnit<ScriptableUnit>(Faction.Round);
+    //     var spawnedUnit = Instantiate(unitPrefab);
+    //     spawnedUnit.Faction = faction;
+    //     spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
 
-        var randomSpawnTile = GridManager.Instance.GetRoundSpawnTile();
+    //     var randomSpawnTile = GridManager.Instance.GetRoundSpawnTile();
 
-        randomSpawnTile.SetUnit(spawnedUnit);
+    //     randomSpawnTile.SetUnit(spawnedUnit);
 
-        GameManager.Instance.ChangeState(GameState.SpawnSquares);
+    //     GameManager.Instance.ChangeState(GameState.SpawnSquares);
 
-    }
+    // }
 
-    public void SpawnSquareUnits() {
-        Faction faction = Faction.Square;
+    // public void SpawnSquareUnits() {
+    //     Faction faction = Faction.Square;
 
-        var randomData = GetRandomUnit<ScriptableUnit>(Faction.Square);
-        var spawnedUnit = Instantiate(unitPrefab);
-        spawnedUnit.Faction = faction;
-        spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
+    //     var randomData = GetRandomUnit<ScriptableUnit>(Faction.Square);
+    //     var spawnedUnit = Instantiate(unitPrefab);
+    //     spawnedUnit.Faction = faction;
+    //     spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
 
-        var randomSpawnTile = GridManager.Instance.GetSquareSpawnTile();
+    //     var randomSpawnTile = GridManager.Instance.GetSquareSpawnTile();
 
-        randomSpawnTile.SetUnit(spawnedUnit);
+    //     randomSpawnTile.SetUnit(spawnedUnit);
 
-        GameManager.Instance.ChangeState(GameState.RoundsTurn);
-    }
+    //     GameManager.Instance.ChangeState(GameState.RoundsTurn);
+    // }
 
     public void SpawnUnits(Faction faction, int numberOfUnits = 1) {
         for (int i = 0; i < numberOfUnits; i++)
@@ -57,9 +57,10 @@ public class UnitManager : MonoBehaviour
             var spawnedUnit = Instantiate(unitPrefab);
             spawnedUnit.Faction = faction;
             spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
+            spawnedUnit.UnitName = randomData.UnitName;
 
             var randomSpawnTile = GridManager.Instance.GetSpawnTile(faction);
-
+            spawnedUnit.transform.position = randomSpawnTile.transform.position;
             randomSpawnTile.SetUnit(spawnedUnit);
         }
     }
@@ -74,5 +75,26 @@ public class UnitManager : MonoBehaviour
         MenuManager.Instance.ShowSelectedUnit(unit);
     }
 
+    public void OnTileSelected(Tile tile) {
+        if(!CombatManager.Instance.ActiveTurn) return;
+
+        if (tile.OccupiedUnit != null) {
+            if(tile.OccupiedUnit.Faction == CombatManager.Instance.ActiveFaction) SetSelectedUnit((BaseUnit)tile.OccupiedUnit);
+            else {
+                if (SelectedUnit != null) {
+                    var enemy = (BaseUnit) tile.OccupiedUnit;
+                    SelectedUnit.ActiveSkill.Activate(enemy);
+                    SetSelectedUnit(null);
+                }
+            }
+        }
+        else {
+            if (SelectedUnit != null) {
+                if (!tile.Walkable) return;
+                SelectedUnit.Move(tile);
+                SetSelectedUnit(null);
+            }
+        }
+    }
 
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   Faction: 0
   roundSprite: {fileID: 21300000, guid: 762659682d6d91046bb05b613bb76575, type: 3}
   squareSprite: {fileID: 21300000, guid: d676b3315ed07d64e97b702a5c59c45c, type: 3}
+  UnitName: "\u0421\u043E\u0431\u0430\u043A\u0435\u043D"

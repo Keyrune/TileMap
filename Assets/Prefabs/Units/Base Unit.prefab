@@ -129,4 +129,8 @@ MonoBehaviour:
   OccupiedTile: {fileID: 0}
   Faction: 0
   _spriteRenderer: {fileID: 3777326023679124660}
-  _movePoint: {fileID: 4048418711949448598}
+  MovePoint: {fileID: 4048418711949448598}
+  UnitName: 
+  ActiveSkill: {fileID: 4461598694423965705, guid: d9ad51bf5c09ccc45aab96fe344101a1,
+    type: 3}
+  health: 100

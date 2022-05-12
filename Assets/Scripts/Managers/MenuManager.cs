@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour {
     public static MenuManager Instance;
 
     [SerializeField] private GameObject _selectedUnitObject, _tileObject, _tileUnitObject;
+    [SerializeField] private GameObject _endTurnButton, _turnInfoObject;
 
     void Awake() {
         Instance = this;
@@ -21,11 +22,11 @@ public class MenuManager : MonoBehaviour {
             return;
         }
 
-        _tileObject.GetComponentInChildren<Text>().text = tile.name;
+        _tileObject.GetComponentInChildren<Text>().text = tile.TileName;
         _tileObject.SetActive(true);
 
         if (tile.OccupiedUnit) {
-            _tileUnitObject.GetComponentInChildren<Text>().text = tile.OccupiedUnit.name;
+            _tileUnitObject.GetComponentInChildren<Text>().text = tile.OccupiedUnit.UnitName;
             _tileUnitObject.SetActive(true);
         }
     }
@@ -36,7 +37,22 @@ public class MenuManager : MonoBehaviour {
             return;
         }
 
-        _selectedUnitObject.GetComponentInChildren<Text>().text = unit.name;
+        _selectedUnitObject.GetComponentInChildren<Text>().text = unit.UnitName;
         _selectedUnitObject.SetActive(true);
+    }
+
+    public void ShowTurnInfo(Faction faction) {
+        switch (faction)
+        {
+            case Faction.Round:
+                _turnInfoObject.GetComponentInChildren<Text>().text = "Rounds";
+                break;
+            case Faction.Square:
+                _turnInfoObject.GetComponentInChildren<Text>().text = "Squares";
+                break;
+            default:
+                _turnInfoObject.GetComponentInChildren<Text>().text = "none";
+                break;
+        }
     }
 }

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Pig
   m_EditorClassIdentifier: 
   Faction: 0
-  roundSprite: {fileID: 0}
-  squareSprite: {fileID: 0}
+  roundSprite: {fileID: 21300000, guid: bd3f2e7de7a328843a2798569ffb6a87, type: 3}
+  squareSprite: {fileID: 21300000, guid: 0bf2d840300fcad46bbb55c8f3e8193f, type: 3}
+  UnitName: "\u0425\u0440\u044E\u0445\u0430"

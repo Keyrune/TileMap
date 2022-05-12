@@ -32,8 +32,10 @@ public class GameManager : MonoBehaviour
                 ChangeState(GameState.RoundsTurn);
                 break;
             case GameState.RoundsTurn:
+                CombatManager.Instance.StartTurn(Faction.Round);
                 break;
             case GameState.SquaresTurn:
+                CombatManager.Instance.StartTurn(Faction.Square);
                 break;
             case GameState.TurnLogic:
                 break;    

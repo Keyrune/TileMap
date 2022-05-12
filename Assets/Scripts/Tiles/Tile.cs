@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+ using UnityEngine.EventSystems;
+ 
  
 public abstract class Tile : MonoBehaviour {
 
@@ -8,6 +10,7 @@ public abstract class Tile : MonoBehaviour {
     [SerializeField] private GameObject _highlight;
     [SerializeField] private bool _isWalkable;
     public BaseUnit OccupiedUnit = null;
+    public string TileName; 
     
     public bool Walkable => _isWalkable && OccupiedUnit == null; 
 
@@ -28,25 +31,8 @@ public abstract class Tile : MonoBehaviour {
     }
 
     private void OnMouseDown() {
-        if(GameManager.Instance.GameState != GameState.RoundsTurn) return;
-        if (!_isWalkable) return;
-
-        if (OccupiedUnit != null) {
-            if(OccupiedUnit.Faction == Faction.Round) UnitManager.Instance.SetSelectedUnit((BaseUnit)OccupiedUnit);
-            else {
-                if (UnitManager.Instance.SelectedUnit != null) {
-                    var enemy = (BaseUnit) OccupiedUnit;
-                    Destroy(enemy.gameObject);
-                    UnitManager.Instance.SetSelectedUnit(null);
-                }
-            }
-        }
-        else {
-            if (UnitManager.Instance.SelectedUnit != null) {
-                SetUnit(UnitManager.Instance.SelectedUnit);
-                UnitManager.Instance.SetSelectedUnit(null);
-            }
-        }
+        if(EventSystem.current.IsPointerOverGameObject()) return;
+        UnitManager.Instance.OnTileSelected(this);
 
     }
 
@@ -54,8 +40,7 @@ public abstract class Tile : MonoBehaviour {
         if (unit.OccupiedTile != null) unit.OccupiedTile.OccupiedUnit = null;
 
         unit.OccupiedTile = this;
+        unit.MovePoint.transform.position = transform.position;
         OccupiedUnit = unit;
-        unit.Move(transform.position);
-
     }
 }

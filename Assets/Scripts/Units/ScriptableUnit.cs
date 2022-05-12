@@ -8,6 +8,7 @@ public class ScriptableUnit : ScriptableObject
     public Faction Faction;
     public Sprite roundSprite;
     public Sprite squareSprite;
+    public string UnitName;
     
 
 

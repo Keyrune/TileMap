@@ -127,5 +127,7 @@ MonoBehaviour:
   _renderer: {fileID: 3280937377146841458}
   _highlight: {fileID: 791115835520783708}
   _isWalkable: 1
+  OccupiedUnit: {fileID: 0}
+  TileName: "\u041F\u043E\u043B\u0435"
   _baseColor: {r: 0.4392157, g: 0.74509805, b: 0.36862746, a: 1}
   _offsetColor: {r: 0.3931904, g: 0.6603774, b: 0.3333037, a: 1}

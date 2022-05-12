@@ -8,10 +8,14 @@ public class BaseUnit : MonoBehaviour
     public Faction Faction;
     private float moveSpeed = 4f;
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] public Transform _movePoint;
+    [SerializeField] public Transform MovePoint;
+    public string UnitName;
+    public Skill ActiveSkill;
+    public int health = 100;
+
 
     private void Awake() {
-        _movePoint.parent = null;
+        MovePoint.parent = null;
     }
 
     public void SetSprite(Sprite newSprite) {
@@ -19,10 +23,19 @@ public class BaseUnit : MonoBehaviour
     }
 
     public void Update() {
-        transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, MovePoint.position, moveSpeed * Time.deltaTime);
     }
 
-    public void Move(Vector3 newPosition) {
-        _movePoint.position = newPosition;
+    public void Move(Tile tile) {
+        tile.SetUnit(this);
     }
+
+    public void TakeDamage(int damage) {
+        health -= damage;
+        Debug.Log(health);
+        
+    }
+
+
+    
 }

@@ -13,43 +13,14 @@ public class UnitManager : MonoBehaviour
     public BaseUnit SelectedUnit;
     [SerializeField] BaseUnit unitPrefab;
 
+
     private void Awake() {
         Instance = this;
 
         _units = Resources.LoadAll<ScriptableUnit>("Animals").ToList();
     }
 
-    // public void SpawnRoundUnits() {
-    //     Faction faction = Faction.Round;
-
-    //     var randomData = GetRandomUnit<ScriptableUnit>(Faction.Round);
-    //     var spawnedUnit = Instantiate(unitPrefab);
-    //     spawnedUnit.Faction = faction;
-    //     spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
-
-    //     var randomSpawnTile = GridManager.Instance.GetRoundSpawnTile();
-
-    //     randomSpawnTile.SetUnit(spawnedUnit);
-
-    //     GameManager.Instance.ChangeState(GameState.SpawnSquares);
-
-    // }
-
-    // public void SpawnSquareUnits() {
-    //     Faction faction = Faction.Square;
-
-    //     var randomData = GetRandomUnit<ScriptableUnit>(Faction.Square);
-    //     var spawnedUnit = Instantiate(unitPrefab);
-    //     spawnedUnit.Faction = faction;
-    //     spawnedUnit.SetSprite(randomData.GetSprite(faction)); 
-
-    //     var randomSpawnTile = GridManager.Instance.GetSquareSpawnTile();
-
-    //     randomSpawnTile.SetUnit(spawnedUnit);
-
-    //     GameManager.Instance.ChangeState(GameState.RoundsTurn);
-    // }
-
+    
     public void SpawnUnits(Faction faction, int numberOfUnits = 1) {
         for (int i = 0; i < numberOfUnits; i++)
         {
@@ -71,8 +42,26 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SetSelectedUnit(BaseUnit unit) {
+
+        // Update move range 
+        if (unit != null) { 
+            foreach (var tile in unit.GetMoveRangeTiles())
+            { 
+                tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.MoveRange);
+            }
+        }
+
+        if (SelectedUnit != null && unit == null) 
+        {
+            foreach (var tile in SelectedUnit.GetMoveRangeTiles())
+            { 
+                tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.None);
+            }
+        }
+
         SelectedUnit = unit;
         MenuManager.Instance.ShowSelectedUnit(unit);
+
     }
 
     public void OnTileSelected(Tile tile) {

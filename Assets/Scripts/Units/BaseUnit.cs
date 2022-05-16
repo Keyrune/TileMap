@@ -12,7 +12,7 @@ public class BaseUnit : MonoBehaviour
     public string UnitName;
     public Skill ActiveSkill;
     public int health = 100;
-    public int moveRange = 3;
+    public int moveRange = 2;
 
 
     private void Awake() {
@@ -28,7 +28,9 @@ public class BaseUnit : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, MovePoint.position, moveSpeed * Time.deltaTime);
     }
 
-    public void Move(Tile tile) {
+    public void Move(Tile tile) 
+    {
+        GetMoveRangeTiles();
         if (Mathf.Abs(tile.tilePosition.x - OccupiedTile.tilePosition.x) + 
             Mathf.Abs(tile.tilePosition.y - OccupiedTile.tilePosition.y) > moveRange) return;
         tile.SetUnit(this);
@@ -40,27 +42,19 @@ public class BaseUnit : MonoBehaviour
         
     }
 
-    private Dictionary<Vector2, Tile> GetMoveRange() {
+    public Dictionary<Vector2, Tile> GetMoveRangeTiles() {
         // Get tiles by move speed
         Dictionary<Vector2, Tile> moveTiles = new Dictionary<Vector2, Tile>();
 
-        for (int x = 1; x <= moveRange; x++)
+        for (int x = -moveRange+1; x < moveRange; x++)
         {
-            for (int y = 1; y <= moveRange; y++)
+            for (int y = -moveRange+1; y < moveRange; y++)
             {
-                moveTiles[new Vector2(x, y)] = GridManager.Instance.GetTileAtPosition(new Vector2(x, y));
+                Vector2 tilePosition = new Vector2(x, y) + OccupiedTile.tilePosition;
+                var tile = GridManager.Instance.GetTileAtPosition(tilePosition);
+                if (tile) moveTiles[tilePosition] = tile;
+                    
             }
-        }
-        
-        List<Vector2> tilesToRemove = new List<Vector2>();
-        foreach (var tile in moveTiles) 
-        {
-            if (!tile.Value.Walkable) tilesToRemove.Add(tile.Key);
-        }
-
-        foreach (var tile in tilesToRemove) 
-        {
-            moveTiles.Remove(tile);
         }
 
         return moveTiles;

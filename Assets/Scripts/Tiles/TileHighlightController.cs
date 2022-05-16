@@ -18,6 +18,7 @@ public class TileHighlightController : MonoBehaviour
                 _renderer.color = Color.white;
                 break;
             case HighlightState.MoveRange:
+                _renderer.color = Color.green;
                 break;
             case HighlightState.SkillRange:
                 break;

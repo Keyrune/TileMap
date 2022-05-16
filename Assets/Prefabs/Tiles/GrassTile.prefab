@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 66381207378655328, guid: 39379fcbefb4e7947acdf09059e9cba8,
         type: 3}
       propertyPath: m_Color.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 66381207378655328, guid: 39379fcbefb4e7947acdf09059e9cba8,
         type: 3}
@@ -87,6 +87,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6206660769401533834, guid: 39379fcbefb4e7947acdf09059e9cba8,
+        type: 3}
+      propertyPath: tileScript
+      value: 
+      objectReference: {fileID: 944246494250508577}
     - target: {fileID: 6659423959352085037, guid: 39379fcbefb4e7947acdf09059e9cba8,
         type: 3}
       propertyPath: m_Name
@@ -106,6 +111,18 @@ SpriteRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 4520591425527547521}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7538499001377157899 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6206660769401533834, guid: 39379fcbefb4e7947acdf09059e9cba8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4520591425527547521}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7122261655892200620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7bba1b6e2b3c36409d5fc998092e10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &791115835520783708 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3766916230294279133, guid: 39379fcbefb4e7947acdf09059e9cba8,
@@ -124,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97634d5fc756eb547bdcaf8b2ec4c8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileHighlightController: {fileID: 7538499001377157899}
   _renderer: {fileID: 3280937377146841458}
   _highlight: {fileID: 791115835520783708}
   _isWalkable: 1

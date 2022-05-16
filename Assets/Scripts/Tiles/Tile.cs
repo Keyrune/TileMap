@@ -6,27 +6,29 @@ using UnityEngine;
  
 public abstract class Tile : MonoBehaviour {
 
+    [SerializeField] internal TileHighlightController tileHighlightController;
     [SerializeField] protected SpriteRenderer _renderer;
     [SerializeField] private GameObject _highlight;
     [SerializeField] private bool _isWalkable;
     public BaseUnit OccupiedUnit = null;
     public string TileName; 
-    
+    public Vector2 tilePosition = Vector2.zero;
+
     public bool Walkable => _isWalkable && OccupiedUnit == null; 
 
 
-    public virtual void Init(int x, int y) {
-        
-    }
+    public virtual void Init(int x, int y) {}
  
+
+
     void OnMouseEnter() {
-        _highlight.SetActive(true);
+        tileHighlightController.ChangeHighlightState(HighlightState.Active);
         MenuManager.Instance.ShowTileInfo(this);
     }
  
     void OnMouseExit()
     {
-        _highlight.SetActive(false);
+        tileHighlightController.ChangeHighlightState(HighlightState.None);
         MenuManager.Instance.ShowTileInfo(null);
     }
 
@@ -43,4 +45,7 @@ public abstract class Tile : MonoBehaviour {
         unit.MovePoint.transform.position = transform.position;
         OccupiedUnit = unit;
     }
+
+    
 }
+

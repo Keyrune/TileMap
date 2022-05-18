@@ -30,9 +30,7 @@ public class BaseUnit : MonoBehaviour
 
     public void Move(Tile tile) 
     {
-        GetMoveRangeTiles();
-        if (Mathf.Abs(tile.tilePosition.x - OccupiedTile.tilePosition.x) + 
-            Mathf.Abs(tile.tilePosition.y - OccupiedTile.tilePosition.y) > moveRange) return;
+        if (!GetMoveRangeTiles().ContainsKey(tile.tilePosition)) return;
         tile.SetUnit(this);
     }
 
@@ -46,10 +44,11 @@ public class BaseUnit : MonoBehaviour
         // Get tiles by move speed
         Dictionary<Vector2, Tile> moveTiles = new Dictionary<Vector2, Tile>();
 
-        for (int x = -moveRange+1; x < moveRange; x++)
+        for (int x = -moveRange; x <= moveRange; x++)
         {
-            for (int y = -moveRange+1; y < moveRange; y++)
+            for (int y = -moveRange; y <= moveRange; y++)
             {
+                if (Mathf.Abs(x) + Mathf.Abs(y) > moveRange) continue;
                 Vector2 tilePosition = new Vector2(x, y) + OccupiedTile.tilePosition;
                 var tile = GridManager.Instance.GetTileAtPosition(tilePosition);
                 if (tile) moveTiles[tilePosition] = tile;

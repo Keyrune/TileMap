@@ -44,19 +44,10 @@ public class UnitManager : MonoBehaviour
     public void SetSelectedUnit(BaseUnit unit) {
 
         // Update move range 
-        if (unit != null) { 
-            foreach (var tile in unit.GetMoveRangeTiles())
-            { 
-                tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.MoveRange);
-            }
-        }
-
-        if (SelectedUnit != null && unit == null) 
-        {
-            foreach (var tile in SelectedUnit.GetMoveRangeTiles())
-            { 
-                tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.None);
-            }
+        GridManager.Instance.ClearAllHighlight();
+        if (unit != null) 
+        {   
+            GridManager.Instance.ShowMoveRange(unit.GetMoveRangeTiles());
         }
 
         SelectedUnit = unit;

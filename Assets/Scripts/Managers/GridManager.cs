@@ -57,8 +57,35 @@ public class GridManager : MonoBehaviour {
             return _tiles.Where(t => t.Key.x < _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
         return _tiles.Where(t => t.Key.x > _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
-
     
+                // GridManager.ShowMoveRange(<list of tiles>)
+            // + GridManager.ShowSkillRange(<list of tiles>)
+    public void ShowMoveRange(Dictionary<Vector2, Tile> tiles) 
+    {
+        foreach (var tile in tiles)
+        {
+            tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.MoveRange);
+        }
+    }
+
+    public void ShowSkillRange(Dictionary<Vector2, Tile> tiles)
+    {
+        foreach (var tile in tiles)
+        {
+            tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.SkillRange);
+        }
+    }
+
+    public void ClearAllHighlight()
+    {
+        foreach (var tile in _tiles)
+        {
+            tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.None);
+        }
+    }
+
+
+
 
     public Tile GetTileAtPosition(Vector2 pos) 
     {

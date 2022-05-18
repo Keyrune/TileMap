@@ -6,6 +6,8 @@ public class TileHighlightController : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private Tile tileScript;
+    private bool _mouseOver;
+
 
 
     public void ChangeHighlightState(HighlightState highlightState) {

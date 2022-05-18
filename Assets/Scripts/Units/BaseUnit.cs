@@ -53,7 +53,6 @@ public class BaseUnit : MonoBehaviour
                 Vector2 tilePosition = new Vector2(x, y) + OccupiedTile.tilePosition;
                 var tile = GridManager.Instance.GetTileAtPosition(tilePosition);
                 if (tile) moveTiles[tilePosition] = tile;
-                    
             }
         }
 

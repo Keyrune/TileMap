@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour {
 
     [SerializeField] private GameObject _selectedUnitObject, _tileObject, _tileUnitObject;
     [SerializeField] private GameObject _endTurnButton, _turnInfoObject;
+    [SerializeField] private GameObject _SelectedUnitPicture;
 
     void Awake() {
         Instance = this;
@@ -37,6 +38,8 @@ public class MenuManager : MonoBehaviour {
             return;
         }
 
+        _SelectedUnitPicture.GetComponent<Image>().sprite = unit.GetComponent<SpriteRenderer>().sprite;
+        _SelectedUnitPicture.GetComponent<Image>().SetNativeSize();
         _selectedUnitObject.GetComponentInChildren<Text>().text = unit.UnitName;
         _selectedUnitObject.SetActive(true);
     }

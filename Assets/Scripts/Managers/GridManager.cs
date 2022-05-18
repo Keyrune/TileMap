@@ -64,7 +64,7 @@ public class GridManager : MonoBehaviour {
     {
         foreach (var tile in tiles)
         {
-            tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.MoveRange);
+            tile.Value.tileHighlightController.ShowMoveRange(true);
         }
     }
 
@@ -72,7 +72,7 @@ public class GridManager : MonoBehaviour {
     {
         foreach (var tile in tiles)
         {
-            tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.SkillRange);
+            tile.Value.tileHighlightController.ShowSkillRange(true);
         }
     }
 
@@ -80,7 +80,8 @@ public class GridManager : MonoBehaviour {
     {
         foreach (var tile in _tiles)
         {
-            tile.Value.tileHighlightController.ChangeHighlightState(HighlightState.None);
+            tile.Value.tileHighlightController.ShowMoveRange(false);
+            tile.Value.tileHighlightController.ShowSkillRange(false);
         }
     }
 

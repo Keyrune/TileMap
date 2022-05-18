@@ -22,13 +22,13 @@ public abstract class Tile : MonoBehaviour {
 
 
     void OnMouseEnter() {
-        tileHighlightController.ChangeHighlightState(HighlightState.Active);
+        tileHighlightController.ChangeMouseHover(true);
         MenuManager.Instance.ShowTileInfo(this);
     }
  
     void OnMouseExit()
     {
-        tileHighlightController.ChangeHighlightState(HighlightState.None);
+        tileHighlightController.ChangeMouseHover(false);
         MenuManager.Instance.ShowTileInfo(null);
     }
 

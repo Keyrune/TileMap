@@ -11,6 +11,7 @@ public class UnitManager : MonoBehaviour
 
     private List<ScriptableUnit> _units;
     public BaseUnit SelectedUnit;
+    private Skill _selectedSkill = null;
     [SerializeField] BaseUnit unitPrefab;
 
 
@@ -41,8 +42,19 @@ public class UnitManager : MonoBehaviour
         return (T)_units.OrderBy(u => Random.value).First();
     }
 
-    public void SetSelectedUnit(BaseUnit unit) {
+    public void SetSelectedSkill(Skill skill) 
+    {
+        _selectedSkill = skill;
 
+        if (_selectedSkill != null) 
+        {   
+            GridManager.Instance.ClearAllHighlight();
+            GridManager.Instance.ShowSkillRange(skill.GetSkillRangeTiles());
+        }
+    }
+
+    public void SetSelectedUnit(BaseUnit unit) 
+    {
         // Update move range 
         GridManager.Instance.ClearAllHighlight();
         if (unit != null) 
@@ -58,15 +70,20 @@ public class UnitManager : MonoBehaviour
     public void OnTileSelected(Tile tile) {
         if(!CombatManager.Instance.ActiveTurn) return;
 
-        if (tile.OccupiedUnit != null) {
-            if(tile.OccupiedUnit.Faction == CombatManager.Instance.ActiveFaction) SetSelectedUnit((BaseUnit)tile.OccupiedUnit);
-            else {
-                if (SelectedUnit != null) {
-                    var enemy = (BaseUnit) tile.OccupiedUnit;
-                    SelectedUnit.ActiveSkill.Activate(tile);
-                    SetSelectedUnit(null);
-                }
-            }
+        if (_selectedSkill) 
+        {
+            // give target to selected skill
+            // out of range diselect unit
+        }
+
+        // if no unit select unit
+        // if unit move/diselect unit
+
+
+        if (tile.OccupiedUnit != null) 
+        {
+            if(tile.OccupiedUnit.Faction == CombatManager.Instance.ActiveFaction) 
+                SetSelectedUnit((BaseUnit)tile.OccupiedUnit);
         }
         else {
             if (SelectedUnit != null) {

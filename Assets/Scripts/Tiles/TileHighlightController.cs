@@ -35,11 +35,19 @@ public class TileHighlightController : MonoBehaviour
             return;
         }
 
+        if (_skillRange)
+        {
+            _renderer.color = Color.red;
+            return;
+        }
+
         if (_moveRange)
         {
             _renderer.color = Color.green;
             return;
         }
+
+
 
         _renderer.color = new Color(0.5f, 0.5f, 0.5f, 0f);
     }

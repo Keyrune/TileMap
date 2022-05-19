@@ -63,7 +63,7 @@ public class UnitManager : MonoBehaviour
             else {
                 if (SelectedUnit != null) {
                     var enemy = (BaseUnit) tile.OccupiedUnit;
-                    SelectedUnit.ActiveSkill.Activate(enemy);
+                    SelectedUnit.ActiveSkill.Activate(tile);
                     SetSelectedUnit(null);
                 }
             }

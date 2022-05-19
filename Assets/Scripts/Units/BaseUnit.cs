@@ -34,10 +34,16 @@ public class BaseUnit : MonoBehaviour
         tile.SetUnit(this);
     }
 
-    public void TakeDamage(int damage) {
-        health -= damage;
+    public void TakeDamage(int damageAmount) {
+        health -= damageAmount;
         Debug.Log(health);
         
+    }
+
+    public void Heal(int healAmount)
+    {
+        health += healAmount;
+        Debug.Log(health);
     }
 
     public Dictionary<Vector2, Tile> GetMoveRangeTiles() {

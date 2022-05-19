@@ -131,5 +131,6 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 3777326023679124660}
   MovePoint: {fileID: 4048418711949448598}
   UnitName: 
-  ActiveSkill: {fileID: 11400000, guid: d64e81aadc3c89248a08d33da42ca15c, type: 2}
+  ActiveSkill: {fileID: 11400000, guid: f883664bde2ee06478c6969d059faa34, type: 2}
   health: 100
+  moveRange: 2

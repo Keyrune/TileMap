@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: 
   skillIcon: {fileID: 0}
-  AreaShape: 0
+  areaShape: 0
   range: 0
   numberOfTargets: 0
-  healAmount: 0
+  healAmount: 25
